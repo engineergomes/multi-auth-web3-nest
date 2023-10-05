@@ -2,18 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from '@superfaceai/passport-twitter-oauth2';
-import { TwitterService } from 'src/twitter/twitter.service';
-import { UsersService } from 'src/users/users.service';
+
 import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
-  constructor(
-    config: ConfigService,
-    private prisma: PrismaService,
-    private twitterService: TwitterService,
-    private usersService: UsersService,
-  ) {
+  constructor(config: ConfigService, private prisma: PrismaService) {
     super({
       clientID: config.get('TWITTER_CLIENT_ID'),
       clientSecret: config.get('TWITTER_CLIENT_SECRET'),
@@ -40,7 +34,7 @@ export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
           where: {
             id: twitterUser.userId,
           },
-          include: { discord: true, matrica: true, twitter: true, nfts: true },
+          include: { discord: true, twitter: true, wallets: true },
         });
 
         return user;
@@ -62,7 +56,7 @@ export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
             },
           },
         },
-        include: { discord: true, matrica: true, twitter: true, nfts: true },
+        include: { discord: true, twitter: true, wallets: true },
       });
 
       return newUser;

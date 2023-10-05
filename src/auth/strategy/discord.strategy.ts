@@ -30,7 +30,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
       if (discordUser) {
         const user = await this.prisma.user.findUnique({
           where: { id: discordUser.userId },
-          include: { discord: true, matrica: true, twitter: true, nfts: true },
+          include: { discord: true, twitter: true, wallets: true },
         });
 
         return done(null, user);
@@ -43,7 +43,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
           name: profile.username,
           discord: { create: { refreshToken, ...profile } },
         },
-        include: { discord: true, matrica: true, twitter: true, nfts: true },
+        include: { discord: true, twitter: true, wallets: true },
       });
       return done(null, user);
     } catch (error) {

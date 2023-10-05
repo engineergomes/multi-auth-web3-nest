@@ -6,7 +6,6 @@ import {
   Res,
   UseGuards,
   Post,
-  Session,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
@@ -19,12 +18,12 @@ import {
 } from './guard';
 
 @Controller('auth')
-export class AuthCrontroler {
+export class AuthController {
   constructor(private config: ConfigService) {}
 
   @Post('/wallet')
   @UseGuards(WalletAuthGuard)
-  walletLogin(@Req() req, @Session() session) {
+  walletLogin() {
     return;
   }
 
@@ -36,7 +35,7 @@ export class AuthCrontroler {
 
   @Get('discord/callback')
   @UseGuards(DiscordAuthGuard)
-  @Redirect(this.config.get('FRONT_URL') + '/welcome')
+  @Redirect('http://localhost:3000/welcome')
   async discordLoginCallback() {
     return;
   }
@@ -50,7 +49,7 @@ export class AuthCrontroler {
   @Get('twitter/callback')
   @UseGuards(TwitterAuthGuard)
   twitterLoginCallback(@Req() req, @Res() res) {
-    res.redirect(this.config.get('FRONT_URL') + '/welcome');
+    res.redirect('http://localhost:3000/welcome');
     return;
   }
 

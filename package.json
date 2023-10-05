@@ -27,9 +27,15 @@
     "@nestjs/passport": "^10.0.2",
     "@nestjs/platform-express": "^9.0.0",
     "@prisma/client": "^5.4.1",
+    "@superfaceai/passport-twitter-oauth2": "^1.2.3",
+    "bs58": "^5.0.0",
+    "passport-discord": "^0.1.4",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "prisma": "^5.4.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -38,6 +44,8 @@
     "@types/express": "^4.17.13",
     "@types/jest": "29.2.4",
     "@types/node": "18.11.18",
+    "@types/passport-discord": "^0.1.9",
+    "@types/passport-jwt": "^3.0.10",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",

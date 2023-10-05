@@ -9,3 +9,79 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name  String?
+  email String? @unique
+
+  twitter Twitter?
+  discord Discord?
+  // github  Github?
+  wallets Wallet[]
+
+  @@map("users")
+}
+
+model Wallet {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  publicKey  String? @unique
+  walletName String?
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  @@map("wallet")
+}
+
+model Discord {
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  username          String?
+  discriminator     String?
+  accent_color      Int?
+  avatar            String?
+  avatar_decoration String?
+  banner            String?
+  banner_color      String?
+  display_name      String?
+  flags             Int?
+  locale            String?
+  mfa_enabled       Boolean?
+  premium_type      Int?
+  public_flags      Int?
+  accessToken       String?
+  refreshToken      String?
+  provider          String?
+  fetchedAt         DateTime?
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @unique
+
+  @@map("discord")
+}
+
+model Twitter {
+  id                String    @id
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  name              String?
+  profileImageUrl   String?
+  username          String?   @unique
+  accessToken       String?
+  accessTokenExpiry DateTime?
+  refreshToken      String?
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @unique
+
+  @@map("twitter")
+}

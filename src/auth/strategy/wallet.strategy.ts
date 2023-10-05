@@ -41,7 +41,7 @@ export class WalletStrategy extends PassportStrategy(Strategy, 'wallet') {
       if (wallet) {
         const user = await this.prisma.user.findUnique({
           where: { id: wallet.userId },
-          include: { discord: true, matrica: true, twitter: true, nfts: true },
+          include: { discord: true, wallets: true, twitter: true },
         });
 
         return done(null, user);
@@ -57,7 +57,7 @@ export class WalletStrategy extends PassportStrategy(Strategy, 'wallet') {
             },
           },
         },
-        include: { discord: true, wallets: true, twitter: true, nfts: true },
+        include: { discord: true, wallets: true, twitter: true },
       });
 
       return done(null, newUser);
