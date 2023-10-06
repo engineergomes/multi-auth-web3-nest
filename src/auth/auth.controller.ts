@@ -35,7 +35,7 @@ export class AuthController {
 
   @Get('discord/callback')
   @UseGuards(DiscordAuthGuard)
-  @Redirect('http://localhost:3000/welcome')
+  @Redirect('http://localhost:3000/dashboard')
   async discordLoginCallback() {
     return;
   }
@@ -49,7 +49,7 @@ export class AuthController {
   @Get('twitter/callback')
   @UseGuards(TwitterAuthGuard)
   twitterLoginCallback(@Req() req, @Res() res) {
-    res.redirect('http://localhost:3000/welcome');
+    res.redirect('http://localhost:3000/dashboard');
     return;
   }
 

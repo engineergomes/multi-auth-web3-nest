@@ -41,27 +41,29 @@ model Wallet {
 }
 
 model Discord {
-  id        String   @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                     String   @id
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  global_name            String?
+  username               String?
+  discriminator          String?
+  accent_color           Int?
+  avatar                 String?
+  avatar_decoration      String?
+  avatar_decoration_data String?
+  banner                 String?
+  banner_color           String?
+  display_name           String?
+  flags                  Int?
 
-  username          String?
-  discriminator     String?
-  accent_color      Int?
-  avatar            String?
-  avatar_decoration String?
-  banner            String?
-  banner_color      String?
-  display_name      String?
-  flags             Int?
-  locale            String?
-  mfa_enabled       Boolean?
-  premium_type      Int?
-  public_flags      Int?
-  accessToken       String?
-  refreshToken      String?
-  provider          String?
-  fetchedAt         DateTime?
+  locale       String?
+  mfa_enabled  Boolean?
+  premium_type Int?
+  public_flags Int?
+  accessToken  String?
+  refreshToken String?
+  provider     String?
+  fetchedAt    DateTime?
 
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int  @unique
@@ -84,4 +86,11 @@ model Twitter {
   userId Int  @unique
 
   @@map("twitter")
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
 }
